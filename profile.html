@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Web components</title>
+</head>
+
+<body>
+
+<profile-picture id="rudie">Rudie's profile picture</profile-picture>
+
+<script>
+class ProfilePictureElement extends HTMLElement {
+	static get observedAttributes() {
+console.debug('observedAttributes');
+		return ['id'];
+	}
+
+	constructor() {
+console.debug('constructor 1');
+		super();
+console.debug('constructor 2');
+
+		// Create shadow with IMG
+		var shadow = this.attachShadow({mode: 'open'});
+		this.image = document.createElement('img');
+		this.image.alt = this.image.title = this.textContent;
+		shadow.appendChild(this.image);
+
+		// Listen for changing textContent
+		var mo = new MutationObserver((mutations) => {
+console.debug('MutationObserver', mutations.length);
+			this.image.alt = this.image.title = this.textContent;
+		});
+		mo.observe(this, {childList: true});
+	}
+
+	get id() {
+		return this.getAttribute('id');
+	}
+
+	set id(id) {
+		this.setAttribute('id', id);
+	}
+
+	attributeChangedCallback(name, oldValue, newValue, namespace) {
+console.debug('attributeChangedCallback', name);
+		if (name == 'id') {
+			this.image.src = `https://www.gravatar.com/avatar/${newValue}`;
+		}
+	}
+
+	connectedCallback() {
+console.debug('connectedCallback');
+	}
+
+	disconnectedCallback() {
+console.debug('disconnectedCallback');
+	}
+
+	adoptedCallback(oldDocument, newDocument) {
+console.debug('adoptedCallback', newDocument);
+	}
+}
+
+customElements.define('profile-picture', ProfilePictureElement);
+</script>
+
+</body>
+
+</html>

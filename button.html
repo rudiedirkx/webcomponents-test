@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Web components</title>
+</head>
+
+<body>
+
+<p><big-button>Huge button!</big-button></p>
+
+<script>
+class BigButtonElement extends HTMLButtonElement {
+	constructor() {
+console.debug('constructor 1');
+		super();
+console.debug('constructor 2');
+
+		// Create shadow with IMG
+		var shadow = this.attachShadow({mode: 'open'});
+	}
+
+	connectedCallback() {
+console.debug('connectedCallback');
+	}
+}
+
+customElements.define('big-button', BigButtonElement, {extends: 'button'});
+</script>
+
+</body>
+
+</html>

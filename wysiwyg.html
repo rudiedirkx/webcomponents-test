@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Web components</title>
+	<style>
+	non-wysiwyg {
+		--padding: 20px;
+	}
+	</style>
+</head>
+
+<body>
+
+<non-wysiwyg name="nonwysiwyger">Big fat editable &lt;strong&gt;WYSIWYG editor&lt;/strong&gt;</non-wysiwyg>
+
+<div>Other div</div>
+
+<script>
+class NonWysiwygElement extends HTMLElement {
+	constructor() {
+console.debug('constructor 1');
+		super();
+console.debug('constructor 2');
+
+		// Create shadow with IMG
+		var shadow = this.createShadowRoot();
+		this.div = document.createElement('div');
+		this.div.innerHTML = this.textContent;
+		this.div.contentEditable = true;
+		shadow.appendChild(this.div);
+
+		var style = document.createElement('style');
+		style.textContent = `
+			:host {
+				display: block;
+			}
+			div {
+				outline: dotted 1px black;
+				padding: var(--padding, 10px);
+			}
+			:host(:hover) div {
+				outline-width: 2px;
+				background: #eee;
+			}
+		`;
+		shadow.appendChild(style);
+
+		if (this.name) {
+			var value = localStorage.getItem(this.name);
+			if (value != null) {
+				this.value = value;
+			}
+
+			this.div.oninput = (e) => {
+				console.log(e.target);
+				localStorage.setItem(this.name, this.value);
+			};
+		}
+	}
+
+	get name() {
+		return this.getAttribute('name');
+	}
+
+	set name(name) {
+		this.setAttribute('name', name);
+	}
+
+	get value() {
+		return this.div.innerHTML;
+	}
+
+	set value(value) {
+		this.div.innerHTML = value;
+	}
+
+	attributeChangedCallback(name, oldValue, newValue, namespace) {
+console.debug('attributeChangedCallback', name);
+		if (name == 'id') {
+			this.image.src = `https://www.gravatar.com/avatar/${newValue}`;
+		}
+	}
+
+	connectedCallback() {
+console.debug('connectedCallback');
+	}
+
+	disconnectedCallback() {
+console.debug('disconnectedCallback');
+	}
+
+	adoptedCallback(oldDocument, newDocument) {
+console.debug('adoptedCallback', newDocument);
+	}
+}
+
+customElements.define('non-wysiwyg', NonWysiwygElement);
+</script>
+
+</body>
+
+</html>

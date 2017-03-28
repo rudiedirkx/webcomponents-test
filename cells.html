@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Web components</title>
+	<style>
+	table {
+		border-collapse: collapse;
+	}
+	td, th {
+		border: solid 1px black;
+		width: 20px;
+		height: 20px;
+	}
+	</style>
+</head>
+
+<body>
+
+<table>
+	<tr>
+		<td is="click-cell" state="ind"></td>
+		<td is="click-cell" state="ind"></td>
+	</tr>
+	<tr>
+		<td is="click-cell" state="ind"></td>
+		<td is="click-cell" state="ind"></td>
+	</tr>
+</table>
+
+<script>
+class ClickCellElement extends HTMLElement {
+	static get observedAttributes() {
+console.debug('observedAttributes');
+		return ['state'];
+	}
+
+	constructor() {
+console.debug('constructor 1');
+		super();
+console.debug('constructor 2');
+
+		// Create shadow with IMG
+		var shadow = this.attachShadow({mode: 'open'});
+		this.link = document.createElement('a');
+		this.link.href = '#';
+		shadow.appendChild(this.link);
+	}
+
+	get state() {
+		return this.getAttribute('state');
+	}
+
+	set state(state) {
+		this.setAttribute('state', state);
+	}
+
+	attributeChangedCallback(name, oldValue, newValue, namespace) {
+console.debug('attributeChangedCallback', name);
+		if (name == 'state') {
+			this.link.className = `state-${newValue}`;
+		}
+	}
+
+	connectedCallback() {
+console.debug('connectedCallback');
+	}
+
+	disconnectedCallback() {
+console.debug('disconnectedCallback');
+	}
+
+	adoptedCallback(oldDocument, newDocument) {
+console.debug('adoptedCallback', newDocument);
+	}
+}
+// ClickCellElement.extends = 'td';
+
+customElements.define('click-cell', ClickCellElement, {extends: 'td'});
+</script>
+
+</body>
+
+</html>
