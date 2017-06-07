@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Web components</title>
+</head>
+
+<body>
+
+<script>
+class BigPElement extends HTMLParagraphElement {
+	constructor() {
+console.debug('constructor 1');
+		super();
+console.debug('constructor 2', this);
+
+		// Create shadow with IMG
+		var shadow = this.attachShadow({mode: 'open'});
+console.dir(this.constructor);
+console.log(this.innerHTML, this.getAttribute);
+		shadow.appendChild(document.createTextNode('Shadow: ' + this.innerHTML));
+	}
+
+	connectedCallback() {
+console.debug('connectedCallback');
+		this.style.borderColor = 'green';
+	}
+}
+
+customElements.define('big-p', BigPElement, {extends: 'p'});
+</script>
+
+<p is="big-p" style="border: solid 1px red">Huge paragraph 1</p>
+
+<big-p style="border: solid 1px red">Huge paragraph 2</big-p>
+
+</body>
+
+</html>

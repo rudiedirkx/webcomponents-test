@@ -7,8 +7,6 @@
 
 <body>
 
-<p><big-button>Huge button!</big-button></p>
-
 <script>
 class BigButtonElement extends HTMLButtonElement {
 	constructor() {
@@ -27,6 +25,8 @@ console.debug('connectedCallback');
 
 customElements.define('big-button', BigButtonElement, {extends: 'button'});
 </script>
+
+<p><button is="big-button">Huge button!</button></p>
 
 </body>
 
