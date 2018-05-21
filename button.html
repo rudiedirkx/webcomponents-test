@@ -7,26 +7,26 @@
 
 <body>
 
+<p><button is="big-button">Huge button!</button></p>
+
 <script>
 class BigButtonElement extends HTMLButtonElement {
 	constructor() {
-console.debug('constructor 1');
+console.log('constructor 1', arguments);
 		super();
-console.debug('constructor 2');
+console.log('constructor 2');
 
 		// Create shadow with IMG
-		var shadow = this.attachShadow({mode: 'open'});
+		// var shadow = this.attachShadow({mode: 'open'});
 	}
 
 	connectedCallback() {
-console.debug('connectedCallback');
+console.log('connectedCallback');
 	}
 }
 
 customElements.define('big-button', BigButtonElement, {extends: 'button'});
 </script>
-
-<p><button is="big-button">Huge button!</button></p>
 
 </body>
 

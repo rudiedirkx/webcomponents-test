@@ -19,9 +19,9 @@
 <script>
 class NonWysiwygElement extends HTMLElement {
 	constructor() {
-console.debug('constructor 1');
+console.log('constructor 1');
 		super();
-console.debug('constructor 2');
+console.log('constructor 2');
 
 		// Create shadow with IMG
 		var shadow = this.createShadowRoot();
@@ -76,22 +76,22 @@ console.debug('constructor 2');
 	}
 
 	attributeChangedCallback(name, oldValue, newValue, namespace) {
-console.debug('attributeChangedCallback', name);
+console.log('attributeChangedCallback', name);
 		if (name == 'id') {
 			this.image.src = `https://www.gravatar.com/avatar/${newValue}`;
 		}
 	}
 
 	connectedCallback() {
-console.debug('connectedCallback');
+console.log('connectedCallback');
 	}
 
 	disconnectedCallback() {
-console.debug('disconnectedCallback');
+console.log('disconnectedCallback');
 	}
 
 	adoptedCallback(oldDocument, newDocument) {
-console.debug('adoptedCallback', newDocument);
+console.log('adoptedCallback', newDocument);
 	}
 }
 

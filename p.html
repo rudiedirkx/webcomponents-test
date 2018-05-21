@@ -10,9 +10,9 @@
 <script>
 class BigPElement extends HTMLParagraphElement {
 	constructor() {
-console.debug('constructor 1');
+console.log('constructor 1');
 		super();
-console.debug('constructor 2', this);
+console.log('constructor 2', this);
 
 		// Create shadow with IMG
 		var shadow = this.attachShadow({mode: 'open'});
@@ -22,7 +22,7 @@ console.log(this.innerHTML, this.getAttribute);
 	}
 
 	connectedCallback() {
-console.debug('connectedCallback');
+console.log('connectedCallback');
 		this.style.borderColor = 'green';
 	}
 }

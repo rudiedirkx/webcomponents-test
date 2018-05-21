@@ -29,16 +29,16 @@
 </table>
 
 <script>
-class ClickCellElement extends HTMLElement {
+class ClickCellElement extends HTMLTableCellElement {
 	static get observedAttributes() {
-console.debug('observedAttributes');
+console.log('observedAttributes');
 		return ['state'];
 	}
 
 	constructor() {
-console.debug('constructor 1');
+console.log('constructor 1');
 		super();
-console.debug('constructor 2');
+console.log('constructor 2');
 
 		// Create shadow with IMG
 		var shadow = this.attachShadow({mode: 'open'});
@@ -56,22 +56,22 @@ console.debug('constructor 2');
 	}
 
 	attributeChangedCallback(name, oldValue, newValue, namespace) {
-console.debug('attributeChangedCallback', name);
+console.log('attributeChangedCallback', name);
 		if (name == 'state') {
 			this.link.className = `state-${newValue}`;
 		}
 	}
 
 	connectedCallback() {
-console.debug('connectedCallback');
+console.log('connectedCallback');
 	}
 
 	disconnectedCallback() {
-console.debug('disconnectedCallback');
+console.log('disconnectedCallback');
 	}
 
 	adoptedCallback(oldDocument, newDocument) {
-console.debug('adoptedCallback', newDocument);
+console.log('adoptedCallback', newDocument);
 	}
 }
 // ClickCellElement.extends = 'td';

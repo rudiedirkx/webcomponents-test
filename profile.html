@@ -12,14 +12,14 @@
 <script>
 class ProfilePictureElement extends HTMLElement {
 	static get observedAttributes() {
-console.debug('observedAttributes');
+console.log('observedAttributes');
 		return ['id'];
 	}
 
 	constructor() {
-console.debug('constructor 1');
+console.log('constructor 1');
 		super();
-console.debug('constructor 2');
+console.log('constructor 2');
 
 		// Create shadow with IMG
 		var shadow = this.attachShadow({mode: 'open'});
@@ -29,7 +29,7 @@ console.debug('constructor 2');
 
 		// Listen for changing textContent
 		var mo = new MutationObserver((mutations) => {
-console.debug('MutationObserver', mutations.length);
+console.log('MutationObserver', mutations.length);
 			this.image.alt = this.image.title = this.textContent;
 		});
 		mo.observe(this, {childList: true});
@@ -44,22 +44,22 @@ console.debug('MutationObserver', mutations.length);
 	}
 
 	attributeChangedCallback(name, oldValue, newValue, namespace) {
-console.debug('attributeChangedCallback', name);
+console.log('attributeChangedCallback', name);
 		if (name == 'id') {
 			this.image.src = `https://www.gravatar.com/avatar/${newValue}`;
 		}
 	}
 
 	connectedCallback() {
-console.debug('connectedCallback');
+console.log('connectedCallback');
 	}
 
 	disconnectedCallback() {
-console.debug('disconnectedCallback');
+console.log('disconnectedCallback');
 	}
 
 	adoptedCallback(oldDocument, newDocument) {
-console.debug('adoptedCallback', newDocument);
+console.log('adoptedCallback', newDocument);
 	}
 }
 
